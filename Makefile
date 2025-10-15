@@ -11,7 +11,7 @@ RESET = \033[0m
 # Configuration
 NAME := push_swap
 CC := cc
-CFLAGS	:= -g -Wextra -Wall -Werror
+CFLAGS	:= -g -Wextra -Wall -Werror -Wunreachable-code -O0
 
 # Directories
 SRC_DIR := ./srcs
@@ -27,7 +27,7 @@ LIBS := $(LIBFT)
 # Mandatory sources
 SRCS := $(shell find srcs -name "*.c")
 
-OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+OBJS := $(subst $(SRC_DIR),$(OBJ_DIR),$(SRCS:.c=.o))
 
 SRCS_BONUS := $(SRC_BONUS_DIR)/main_bonus.c \
 			  $(SRC_BONUS_DIR)/ft_path_bonus.c \
@@ -85,7 +85,7 @@ $(BONUS_MARK): $(LIBFT) $(OBJS_BONUS)
 # Libraries
 $(LIBFT):
 	@echo "$(YELLOW)Building libft...$(RESET)"
-	@$(MAKE) -C $(LIBFT_DIR)
+	@$(MAKE) -C $(LIBFT_DIR) bonus
 	@echo "$(GREEN)Libft built successfully!$(RESET)"
 
 clean:
