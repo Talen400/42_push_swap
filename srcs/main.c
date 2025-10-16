@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 05:19:47 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/16 10:02:26 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/16 13:48:41 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ static void	ft_print_stacks(t_list *a, t_list *b, const char *op)
 	printf("-------------------------------\n");
 }
 
-static int	ft_check_sort(t_list **head)
+static int	ft_check_sort(t_list **head, int (*cmp) (int, int ))
 {
 	t_list	*node;
 	t_list	*prev;
@@ -185,10 +185,20 @@ static int	ft_check_sort(t_list **head)
 	{
 		prev = node;
 		node = node->next;
-		if (*(int *)(prev->content) > *(int *)node->content)
+		if (cmp(*(int *)(prev->content), *(int *)node->content) == 0)
 			return (1);
 	}
 	return (0);
+}
+
+static int	ft_ascending(int a, int b)
+{
+	return (a < b);
+}
+
+static int	ft_descending(int a, int b)
+{
+	return (a > b);
 }
 
 int	main(int argc, char **argv)
@@ -207,39 +217,54 @@ int	main(int argc, char **argv)
 		return (ft_handler_logic("Error\n"));
 	}
 	b = NULL;
-	ft_print_stacks(a, b, "initial");
-
-	ft_rotate(&a);
-	ft_print_stacks(a, b, "ra");
-
-	ft_swap(&a);
-	ft_print_stacks(a, b, "sa");
-
-	ft_push(&a, &b);
-	ft_print_stacks(a, b, "pb");
-
-	ft_rrotate(&a);
-	ft_print_stacks(a, b, "rra");
-
-	ft_push(&a, &b);
-	ft_print_stacks(a, b, "pb");
-
-	ft_push(&b, &a);
-	ft_print_stacks(a, b, "pa");
-	
-	ft_push(&a, &b);
-	ft_print_stacks(a, b, "pb");
 
 	ft_swap(&b);
-	ft_print_stacks(a, b, "sb");
+	ft_rrotate(&b);
+	int	num_op;
 
-	ft_push(&b, &a);
-	ft_print_stacks(a, b, "pa");
-
-	ft_swap(&a);
-	ft_print_stacks(a, b, "pa");
-
-	if (ft_check_sort(&a) == 0)
+	num_op = 0;
+	while (ft_check_sort(&a, ft_ascending) != 0 || b)
+	{
+		usleep(100 * 1000);
+		ft_print_stacks(a, b, "ra");
+		if (!a)
+		{
+			while (b)
+			{
+				ft_push(&b, &a);
+				num_op += 1;
+			}
+			int size = ft_lstsize(a);
+			while (size)
+			{
+				ft_rotate(&a);
+				num_op += 1;
+				size--;
+			}
+			ft_print_stacks(a, b, "ordenado!");
+			break ;
+		}
+		if (b && *(int *)(a->content) > *(int *)(b->content))
+		{
+			ft_push(&b, &a);
+			num_op += 1;
+		}
+		else if (a->next && *(int *)(a->content) > *(int *)(a->next->content))
+		{
+			ft_push(&a, &b);
+			num_op+= 1;
+		}
+		else if (a && !a->next)
+		{
+			ft_push(&a, &b);
+			num_op += 1;
+		}
+		ft_rotate(&a);
+		num_op += 1;
+		printf("num_op: %d\n", num_op);
+	}
+	(void) ft_descending;
+	if (ft_check_sort(&a, ft_ascending) == 0)
 		ft_putstr_fd("sorted :>\n", 1);
 	else
 		ft_putstr_fd("not sorted :<\n", 2);
