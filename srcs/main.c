@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 05:19:47 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/15 15:29:40 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/16 10:02:26 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,25 @@ static void	ft_print_stacks(t_list *a, t_list *b, const char *op)
 	printf("-------------------------------\n");
 }
 
+static int	ft_check_sort(t_list **head)
+{
+	t_list	*node;
+	t_list	*prev;
+
+	if (!head || !*head)
+		return (1);
+	prev = NULL;
+	node = *head;
+	while (node->next)
+	{
+		prev = node;
+		node = node->next;
+		if (*(int *)(prev->content) > *(int *)node->content)
+			return (1);
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_list	*a;
@@ -217,6 +236,13 @@ int	main(int argc, char **argv)
 	ft_push(&b, &a);
 	ft_print_stacks(a, b, "pa");
 
+	ft_swap(&a);
+	ft_print_stacks(a, b, "pa");
+
+	if (ft_check_sort(&a) == 0)
+		ft_putstr_fd("sorted :>\n", 1);
+	else
+		ft_putstr_fd("not sorted :<\n", 2);
 	ft_lstclear(&a, ft_del);
 	(void ) argc;
 }

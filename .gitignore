@@ -1,0 +1,4 @@
+*.o
+*.swp
+push_swap
+.mandatory

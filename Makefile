@@ -25,9 +25,9 @@ LIBFT := $(LIBFT_DIR)/libft.a
 LIBS := $(LIBFT)
 
 # Mandatory sources
-SRCS := $(shell find srcs -name "*.c")
+SRCS := $(SRC_DIR)/main.c 
 
-OBJS := $(subst $(SRC_DIR),$(OBJ_DIR),$(SRCS:.c=.o))
+OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 SRCS_BONUS := $(SRC_BONUS_DIR)/main_bonus.c \
 			  $(SRC_BONUS_DIR)/ft_path_bonus.c \
