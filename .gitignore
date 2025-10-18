@@ -2,3 +2,5 @@
 *.swp
 push_swap
 .mandatory
+generator.py
+checker_linux

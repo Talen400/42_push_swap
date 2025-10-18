@@ -6,268 +6,66 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 05:19:47 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/16 13:48:41 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/18 03:49:14 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-static int	ft_handler_logic(char *str)
+static int	ft_parse(char **argv, t_stack *list)
 {
-	ft_putstr_fd(str, 2);
+	int	value;
+
+	while (*argv)
+	{
+		value = ft_atoi(*argv);
+		stack_push_back(list, value);
+		argv++;
+	}
 	return (1);
 }
 
-static int	ft_isnum(char	*str)
+static int	ft_check_repeat(t_node *head)
 {
-	while (*str)
+	t_node	*node;
+
+	while (head)
 	{
-		if (!ft_isdigit(*str))
-			return (1);
-		str++;
-	}
-	return (0);
-}
-
-
-static t_list	*ft_parse(char **argv)
-{
-	t_list	*a;
-	t_list	*node;
-	int		*ptr;
-	int		i;
-
-	i = 1;
-	a = NULL;
-	while (argv[i])
-	{
-		if (ft_isnum(argv[i]) == 0)
+		node = head->next;
+		while (node)
 		{
-			ptr = (int *) malloc (sizeof(int ));
-			if (!ptr)
-				return (NULL);
-			*ptr = ft_atoi(argv[i]);
-			node = ft_lstnew(ptr);
-			ft_lstadd_back(&a, node);
-		}
-		else
-			break ;
-		i++;
-	}
-	return (a);
-}
-
-static int	ft_check_repeats(t_list *list)
-{
-	t_list	*i;
-	t_list	*j;
-
-	i = list;
-	while (i)
-	{
-		j = i->next;
-		while (j)
-		{
-			if (*(int *) i->content == *(int *) j->content)
+			if (head->value == node->value)
 				return (1);
-			j = j->next;
+			node = node->next;
 		}
-		i = i->next;
+		head = head->next;
 	}
 	return (0);
-}
-
-static void	ft_del(void	*ptr)
-{
-	free(ptr);
-}
-
-static void	ft_swap(t_list **head)
-{
-	t_list	*first;
-	t_list	*second;
-
-	if (!head || !*head || !(*head)->next)
-		return ;
-	first = *head;
-	second = first->next;
-	first->next = second->next;
-	second->next = first;
-	*head = second;
-}
-
-static void	ft_push(t_list **src, t_list **dest)
-{
-	t_list	*tmp;
-
-	if (!src || !*src)
-		return ;
-	tmp = *src;
-	*src = (*src)->next;
-	tmp->next = *dest;
-	*dest = tmp;
-}
-
-static void	ft_rotate(t_list **head)
-{
-	t_list	*first;
-	t_list	*last;
-
-	if (!head || !*head || !(*head)->next)
-		return ;
-	first = *head;
-	last = *head;
-	while (last->next)
-		last = last->next;
-	*head = first->next;
-	first->next = NULL;
-	last->next = first;
-}
-
-static void	ft_rrotate(t_list **head)
-{
-	t_list	*prev;
-	t_list	*last;
-
-	if (!head || !*head || !(*head)->next)
-		return ;
-	prev = NULL;
-	last = *head;
-	while (last->next)
-	{
-		prev = last;
-		last = last->next;
-	}
-	prev->next = NULL;
-	last->next = *head;
-	*head = last;
-}
-
-static void	ft_print_stacks(t_list *a, t_list *b, const char *op)
-{
-	int	i;
-
-	i = 0;
-	printf("%-10s%-10s%-10s (%s)\n", "index", "a", "b", op);
-	while (a || b)
-	{
-		printf("node[%-2d]: ", i);
-		if (a)
-		{
-			printf("%-10d", *(int *)(a->content));
-			a = a->next;
-		}
-		else
-			printf("%-10s", "");
-		if (b)
-		{
-			printf("%-10d", *(int *)(b->content));
-			b = b->next;
-		}
-		else
-			printf("%-10s", "");
-		printf("\n");
-		i++;
-	}
-	printf("-------------------------------\n");
-}
-
-static int	ft_check_sort(t_list **head, int (*cmp) (int, int ))
-{
-	t_list	*node;
-	t_list	*prev;
-
-	if (!head || !*head)
-		return (1);
-	prev = NULL;
-	node = *head;
-	while (node->next)
-	{
-		prev = node;
-		node = node->next;
-		if (cmp(*(int *)(prev->content), *(int *)node->content) == 0)
-			return (1);
-	}
-	return (0);
-}
-
-static int	ft_ascending(int a, int b)
-{
-	return (a < b);
-}
-
-static int	ft_descending(int a, int b)
-{
-	return (a > b);
 }
 
 int	main(int argc, char **argv)
 {
-	t_list	*a;
-	t_list	*b;
+	t_stack	*a;
+	t_stack	*b;
 
-	if (argc <= 1)
+	if (argc < 2)
 		return (ft_handler_logic("Error\n"));
-	a = ft_parse(argv);
-	if (!a)
-		return (ft_handler_logic("Error\n"));
-	if (ft_check_repeats(a))
+	a = ft_stacknew();
+	b = ft_stacknew();
+	if (!a || !b)
+		return (1);
+	if (!ft_parse(argv + 1, a))
 	{
-		ft_lstclear(&a, ft_del);
-		return (ft_handler_logic("Error\n"));
+		stack_free(a);
+		stack_free(b);
 	}
-	b = NULL;
-
-	ft_swap(&b);
-	ft_rrotate(&b);
-	int	num_op;
-
-	num_op = 0;
-	while (ft_check_sort(&a, ft_ascending) != 0 || b)
+	if (ft_check_repeat(a->head))
 	{
-		usleep(100 * 1000);
-		ft_print_stacks(a, b, "ra");
-		if (!a)
-		{
-			while (b)
-			{
-				ft_push(&b, &a);
-				num_op += 1;
-			}
-			int size = ft_lstsize(a);
-			while (size)
-			{
-				ft_rotate(&a);
-				num_op += 1;
-				size--;
-			}
-			ft_print_stacks(a, b, "ordenado!");
-			break ;
-		}
-		if (b && *(int *)(a->content) > *(int *)(b->content))
-		{
-			ft_push(&b, &a);
-			num_op += 1;
-		}
-		else if (a->next && *(int *)(a->content) > *(int *)(a->next->content))
-		{
-			ft_push(&a, &b);
-			num_op+= 1;
-		}
-		else if (a && !a->next)
-		{
-			ft_push(&a, &b);
-			num_op += 1;
-		}
-		ft_rotate(&a);
-		num_op += 1;
-		printf("num_op: %d\n", num_op);
+		stack_free(a);
+		stack_free(b);
+		return ((ft_handler_logic("Error\n")));
 	}
-	(void) ft_descending;
-	if (ft_check_sort(&a, ft_ascending) == 0)
-		ft_putstr_fd("sorted :>\n", 1);
-	else
-		ft_putstr_fd("not sorted :<\n", 2);
-	ft_lstclear(&a, ft_del);
+	stack_free(a);
+	stack_free(b);
 	(void ) argc;
 }

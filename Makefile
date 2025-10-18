@@ -11,7 +11,7 @@ RESET = \033[0m
 # Configuration
 NAME := push_swap
 CC := cc
-CFLAGS	:= -g -Wextra -Wall -Werror -Wunreachable-code -O0
+CFLAGS	:= -g -Wextra -Wall -Werror -Wunreachable-code
 
 # Directories
 SRC_DIR := ./srcs
@@ -25,7 +25,9 @@ LIBFT := $(LIBFT_DIR)/libft.a
 LIBS := $(LIBFT)
 
 # Mandatory sources
-SRCS := $(SRC_DIR)/main.c 
+SRCS := $(SRC_DIR)/main.c \
+		$(SRC_DIR)/ft_stack.c \
+		$(SRC_DIR)/ft_utils.c
 
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
