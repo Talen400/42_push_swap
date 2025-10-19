@@ -30,10 +30,23 @@ typedef struct	s_lis_data
 // utils
 int	ft_handler_logic(char *str);
 
+// parse
+int	ft_parse(char **argv, t_stack *list);
+int	ft_check_repeat(t_node *head);
+
 // stack
 
 t_stack	*ft_stacknew(void);
 t_node	*ft_nodenew(int value);
 void	stack_push_back(t_stack *stack, int value);
 void	stack_free(t_stack *stack);
+
+// operations
+void	ft_push(t_stack *from, t_stack *dest);
+void	ft_rotate(t_stack *stack);
+void	ft_rrotate(t_stack *stack);
+void	ft_swap(t_stack *stack);
+
+// print
+void	ft_print_stacks(t_stack *a, t_stack *b, const char *op);
 #endif

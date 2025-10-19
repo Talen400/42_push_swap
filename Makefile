@@ -27,7 +27,10 @@ LIBS := $(LIBFT)
 # Mandatory sources
 SRCS := $(SRC_DIR)/main.c \
 		$(SRC_DIR)/ft_stack.c \
-		$(SRC_DIR)/ft_utils.c
+		$(SRC_DIR)/ft_utils.c \
+		$(SRC_DIR)/ft_parse.c \
+		$(SRC_DIR)/ft_operations.c \
+		$(SRC_DIR)/ft_print_stacks.c
 
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

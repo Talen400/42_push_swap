@@ -6,41 +6,49 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 05:19:47 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/18 03:49:14 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/18 21:37:19 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-static int	ft_parse(char **argv, t_stack *list)
+static int	*ft_array_binary(t_stack *list)
 {
-	int	value;
+	int		i;
+	t_node	*node;
+	int		*values;
 
-	while (*argv)
+	node = list->head;
+	i = 0;
+	values = malloc (sizeof(int ) * list->size);
+	if (!values)
+		return (NULL);
+	while (i < list->size)
 	{
-		value = ft_atoi(*argv);
-		stack_push_back(list, value);
-		argv++;
+		values[i] = node->value;
+		node = node->next;
+		i++;
 	}
-	return (1);
+	return (values);
 }
 
-static int	ft_check_repeat(t_node *head)
+static int	ft_binary_search(int *arr, int search, int len)
 {
-	t_node	*node;
+	int	mid;
+	int	left;
+	int	right;
 
-	while (head)
+	left = 0;
+	right = len;
+	while (left < right)
 	{
-		node = head->next;
-		while (node)
-		{
-			if (head->value == node->value)
-				return (1);
-			node = node->next;
-		}
-		head = head->next;
+		mid = left + (right - left) / 2;
+		if (arr[mid] < search)
+			left = mid + 1;
+		else
+			right = mid;
 	}
-	return (0);
+	return (left);
 }
 
 int	main(int argc, char **argv)
@@ -65,6 +73,34 @@ int	main(int argc, char **argv)
 		stack_free(b);
 		return ((ft_handler_logic("Error\n")));
 	}
+	ft_print_stacks(a, b, "initial");
+
+	int	*values;
+	values = ft_array_binary(a);
+	int	i = 0;
+	while (i <  a->size)
+	{
+		printf("%d \n", values[i]);
+		i++;
+	}
+	int	search = 12;
+	printf("Encontrado! %d\n", ft_binary_search(values, search, a->size));
+
+	ft_push(a, b);
+	ft_print_stacks(a, b, "pb");
+
+	ft_rotate(a);
+	ft_print_stacks(a, b, "ra");
+	
+	ft_push(a, b);
+	ft_print_stacks(a, b, "pb");
+	
+	ft_rrotate(b);
+	ft_print_stacks(a, b, "rb");
+
+	ft_swap(a);
+	ft_print_stacks(a, b, "sa");
+
 	stack_free(a);
 	stack_free(b);
 	(void ) argc;
