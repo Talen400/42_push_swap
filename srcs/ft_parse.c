@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 19:47:26 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/18 19:48:47 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/19 04:37:57 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_parse(char **argv, t_stack *list)
 	while (*argv)
 	{
 		value = ft_atoi(*argv);
-		stack_push_back(list, value);
+		ft_stack_push_back(list, value);
 		argv++;
 	}
 	return (1);

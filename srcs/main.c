@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 05:19:47 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/19 03:39:47 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/19 04:46:50 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,75 @@ t_lis_data	*ft_find_lis(int *values, int size)
 	data->is_in_lis = flags;
 	data->lis_lenght = lis_len;
 	data->total_size = size;
+	free(tails);
+	free(prev);
+	free(tails_inc);
 	return (data);
+}
+
+static int	ft_get_best_lis_rotation(int *values, int size)
+{
+	int	max_lis_len = 0;
+	int	best_rotation_count = 0;
+	int	i = 0;
+	int	j;
+	int	temp;
+	t_lis_data	*lis_data;
+
+	while (i < size)
+	{
+		lis_data = ft_find_lis(values, size);
+		if (!lis_data)
+			return (-1);
+		if (lis_data->lis_lenght > max_lis_len)
+		{
+			max_lis_len = lis_data->lis_lenght;
+			best_rotation_count = i;
+		}
+		free(lis_data->is_in_lis);
+		free(lis_data);
+		if (i < size - 1)
+		{
+			temp = values[0];
+			j = 0;
+			while (j < size - 1)
+			{
+				values[j] = values[j + 1];;
+				j++;
+			}
+			values[size - 1] = temp;
+		}
+		i++;
+	}
+	return (best_rotation_count);
+}
+
+static void	ft_align_best_lis(t_stack *a, t_stack *b, int rotations_needed)
+{
+	int	size;
+	int	rra_count;
+
+	size = a->size;
+	if (rotations_needed <= size / 2)
+	{
+		while (rotations_needed-- > 0)
+		{
+			ft_rotate(a);
+			// ft_print_stacks(a, b, ra");
+			op_count++;
+		}
+	}
+	else
+	{
+		rra_count = size - rotations_needed;
+		while (rra_count-- > 0)
+		{
+			ft_rrotate(a);
+			// ft_print_stacks(a, b, "rra");
+			op_count++;
+		}
+	}
+	(void) b;
 }
 
 static void	ft_push_non_lis_to_b(t_stack *a, t_stack *b, t_lis_data *data)
@@ -224,24 +292,20 @@ static void	ft_push_non_lis_to_b(t_stack *a, t_stack *b, t_lis_data *data)
 	int	pushed;
 	int	target_pushes;
 	int	position;
-	int	max_rotations;
+	int	rotations_done;
 
 	pushed = 0;
 	target_pushes = data->total_size - data->lis_lenght;
 	position = 0;
-	max_rotations = data->total_size * 2;
-	while (pushed < target_pushes && max_rotations > 0)
+	rotations_done = 0;
+	while (pushed < target_pushes && rotations_done < data->total_size * 2)
 	{
-		if (position >= data->total_size)
-			position = 0;
-		if (a->size == data->lis_lenght)
-			break ;
-		if (data->is_in_lis[position])
+		if (data->is_in_lis[position % data->total_size])
 		{
 			ft_rotate(a);
 			//ft_print_stacks(a, b, "ra");
 			op_count++;
-			max_rotations--;
+			position++;
 		}
 		else
 		{
@@ -250,7 +314,7 @@ static void	ft_push_non_lis_to_b(t_stack *a, t_stack *b, t_lis_data *data)
 			op_count++;
 			pushed++;
 		}
-		position++;
+		rotations_done++;
 	}
 }
 
@@ -530,45 +594,14 @@ void	ft_final_rotation(t_stack *a, t_stack *b)
 	(void ) b;
 }
 
-int	main(int argc, char **argv)
+static void	ft_sort_big(t_stack *a, t_stack *b)
 {
-	t_stack		*a;
-	t_stack		*b;
-	int			*values;
+	int	*values;
 	t_lis_data	*lis;
+	int	rotations_to_best_lis;
+	int	ops_before;
 
-	if (argc < 2)
-		return (ft_handler_logic("Error\n"));
-	a = ft_stacknew();
-	b = ft_stacknew();
-	if (!a || !b)
-		return (1);
-	if (!ft_parse(argv + 1, a))
-	{
-		stack_free(a);
-		stack_free(b);
-	}
-	if (ft_check_repeat(a->head))
-	{
-		stack_free(a);
-		stack_free(b);
-		return ((ft_handler_logic("Error\n")));
-	}
-	/**
-	ft_print_stacks(a, b, "initial");
-
-	values = ft_normalized(a);
-
-	lis = ft_find_lis(values, a->size);
-	if (!lis)
-		return (1);
-	ft_push_non_lis_to_b(a, b, lis);
-	ft_push_back_sorted(a, b);
-	ft_final_rotation(a, b);
-	printf("Qu operations: %d\n", op_count);
-	**/
-
-	//ft_print_stacks(a, b, "initial");
+	//---
 	printf("\n=== VALUES ===\n");
 	t_node *temp = a->head;
 	int count = 0;
@@ -579,16 +612,29 @@ int	main(int argc, char **argv)
 		count++;
 	}
 	printf("...\n");
+	//---
 	values = ft_normalized(a);
 	if (!values)
-		return (1);
+		return ;
+	//---
 	printf("\n=== NORMALIZED VALUES ===\n");
 	for (int i = 0; i < (a->size < 10 ? a->size : 10); i++)
 		printf("%d ", values[i]);
 	printf("...\n");
+	//---
+	rotations_to_best_lis = ft_get_best_lis_rotation(values, a->size);
+	free(values);
+	ops_before = op_count;
+	ft_align_best_lis(a, b, rotations_to_best_lis);
+	values = ft_normalized(a);
+	if (!values)
+		return ;
 	lis = ft_find_lis(values, a->size);
 	if (!lis)
-		return (1);
+	{
+		free(values);
+		return ;
+	}
 	printf("\n=== LIS INFO ===\n");
 	printf("LIS length: %d / %d (%.1f%%)\n",
 			lis->lis_lenght, lis->total_size,
@@ -609,7 +655,7 @@ int	main(int argc, char **argv)
 	}
 	printf("...\n\n");
 	printf("=== PHASE 1: PUSH NON-LIS TO B ===\n");
-	int ops_before = op_count;
+	ops_before = op_count;
 	ft_push_non_lis_to_b(a, b, lis);
 	printf("Operations in phase 1: %d\n", op_count - ops_before);
 	printf("Elements in A: %d, in B: %d\n\n", a->size, b->size);
@@ -624,9 +670,82 @@ int	main(int argc, char **argv)
 	printf("Operations in phase 3: %d\n\n", op_count - ops_before);
 	printf("=== TOTAL ===\n");
 	printf("Total operations: %d\n", op_count);
+	free(lis->is_in_lis);
 	free(lis);
 	free(values);
-	stack_free(a);
-	stack_free(b);
+}
+
+static void	ft_choose_sort(t_stack *a, t_stack *b)
+{
+	if (a->size <= 5)
+		ft_sort_big(a, b); //ft_sort_small(a, b);
+	else
+		ft_sort_big(a, b);
+}
+
+int ft_is_sorted(t_stack *stack_a)
+{
+    t_node  *current;
+
+    if (!stack_a || !stack_a->head || stack_a->size <= 1)
+        return (1);
+    current = stack_a->head;
+    while (current->next)
+    {
+        if (current->value > current->next->value)
+            return (0);
+        current = current->next;
+    }
+    return (1);
+}
+
+int	main(int argc, char **argv)
+{
+	t_stack		*a;
+	t_stack		*b;
+
+	if (argc < 2)
+		return (ft_handler_logic("Error\n"));
+	a = ft_stacknew();
+	b = ft_stacknew();
+	if (!a || !b)
+		return (1);
+	if (!ft_parse(argv + 1, a))
+	{
+		ft_stack_free(a);
+		ft_stack_free(b);
+	}
+	if (ft_check_repeat(a->head))
+	{
+		ft_stack_free(a);
+		ft_stack_free(b);
+		return ((ft_handler_logic("Error\n")));
+	}
+	/**
+	ft_print_stacks(a, b, "initial");
+
+	values = ft_normalized(a);
+
+	lis = ft_find_lis(values, a->size);
+	if (!lis)
+		return (1);
+	ft_push_non_lis_to_b(a, b, lis);
+	ft_push_back_sorted(a, b);
+	ft_final_rotation(a, b);
+	printf("Qu operations: %d\n", op_count);
+	**/
+
+	//ft_print_stacks(a, b, "initial");
+	ft_choose_sort(a, b);
+	if (ft_is_sorted(a))
+	{
+		printf("not sorted :<");
+	}
+	else
+	{
+		printf("sorted :>");
+	}
+	ft_stack_free(a);
+	ft_stack_free(b);
 	(void ) argc;
 }

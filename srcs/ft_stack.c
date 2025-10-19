@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 03:19:47 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/18 03:31:01 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/19 04:36:37 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_node	*ft_nodenew(int value)
 	return (node);
 }
 
-void	stack_push_back(t_stack *stack, int value)
+void	ft_stack_push_back(t_stack *stack, int value)
 {
 	t_node *new_node;
 
@@ -59,7 +59,7 @@ void	stack_push_back(t_stack *stack, int value)
 	stack->size++;
 }
 
-void	stack_free(t_stack *stack)
+void	ft_stack_free(t_stack *stack)
 {
 	t_node	*node;
 	t_node	*next;

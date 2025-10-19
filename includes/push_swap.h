@@ -40,8 +40,8 @@ int	ft_check_repeat(t_node *head);
 
 t_stack	*ft_stacknew(void);
 t_node	*ft_nodenew(int value);
-void	stack_push_back(t_stack *stack, int value);
-void	stack_free(t_stack *stack);
+void	ft_stack_push_back(t_stack *stack, int value);
+void	ft_stack_free(t_stack *stack);
 
 // operations
 void	ft_push(t_stack *from, t_stack *dest);
