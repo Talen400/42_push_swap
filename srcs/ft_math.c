@@ -1,44 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse.c                                         :+:      :+:    :+:   */
+/*   ft_math.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/18 19:47:26 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/20 22:06:19 by tlavared         ###   ########.fr       */
+/*   Created: 2025/10/20 13:40:32 by tlavared          #+#    #+#             */
+/*   Updated: 2025/10/20 13:42:16 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int	ft_parse(char **argv, t_stack *stack)
+int	ft_abs(int n)
 {
-	int	value;
-
-	while (*argv)
-	{
-		value = ft_atoi(*argv);
-		ft_stack_push_back(stack, value);
-		argv++;
-	}
-	return (1);
+	if (n < 0)
+		n *= -1;
+	return (n);
 }
 
-int	ft_check_repeat(t_node *head)
+int	ft_max(int a, int b)
 {
-	t_node	*node;
+	if (a > b)
+		return (a);
+	else
+		return (b);
+}
 
-	while (head)
-	{
-		node = head->next;
-		while (node)
-		{
-			if (head->value == node->value)
-				return (1);
-			node = node->next;
-		}
-		head = head->next;
-	}
-	return (0);
+int	ft_min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	else
+		return (b);
 }

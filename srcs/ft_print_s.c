@@ -1,44 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse.c                                         :+:      :+:    :+:   */
+/*   ft_print_s.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/18 19:47:26 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/20 22:06:19 by tlavared         ###   ########.fr       */
+/*   Created: 2025/10/20 18:42:01 by tlavared          #+#    #+#             */
+/*   Updated: 2025/10/20 18:45:15 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int	ft_parse(char **argv, t_stack *stack)
+void	ft_sa(t_stack *a)
 {
-	int	value;
-
-	while (*argv)
-	{
-		value = ft_atoi(*argv);
-		ft_stack_push_back(stack, value);
-		argv++;
-	}
-	return (1);
+	ft_swap(a);
+	write(1, "sa\n", 3);
 }
 
-int	ft_check_repeat(t_node *head)
+void	ft_sb(t_stack *b)
 {
-	t_node	*node;
+	ft_swap(b);
+	write(1, "sb\n", 3);
+}
 
-	while (head)
-	{
-		node = head->next;
-		while (node)
-		{
-			if (head->value == node->value)
-				return (1);
-			node = node->next;
-		}
-		head = head->next;
-	}
-	return (0);
+void	ft_ss(t_stack *a, t_stack *b)
+{
+	ft_swap(a);
+	ft_swap(b);
+	write(1, "ss\n", 3);
 }

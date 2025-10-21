@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 03:19:47 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/19 04:36:37 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/20 22:06:10 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_stack	*ft_stacknew(void)
 {
-	t_stack *stack;
+	t_stack	*stack;
 
 	stack = malloc(sizeof(t_stack));
 	if (!stack)
@@ -40,7 +40,7 @@ t_node	*ft_nodenew(int value)
 
 void	ft_stack_push_back(t_stack *stack, int value)
 {
-	t_node *new_node;
+	t_node	*new_node;
 
 	new_node = ft_nodenew(value);
 	if (!new_node)
@@ -75,4 +75,3 @@ void	ft_stack_free(t_stack *stack)
 	}
 	free(stack);
 }
-

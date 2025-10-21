@@ -1,44 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse.c                                         :+:      :+:    :+:   */
+/*   ft_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/18 19:47:26 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/20 22:06:19 by tlavared         ###   ########.fr       */
+/*   Created: 2025/10/20 13:21:54 by tlavared          #+#    #+#             */
+/*   Updated: 2025/10/20 13:25:13 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int	ft_parse(char **argv, t_stack *stack)
+void	ft_pb(t_stack *a, t_stack *b)
 {
-	int	value;
-
-	while (*argv)
-	{
-		value = ft_atoi(*argv);
-		ft_stack_push_back(stack, value);
-		argv++;
-	}
-	return (1);
+	ft_push(a, b);
+	write(1, "pb\n", 3);
 }
 
-int	ft_check_repeat(t_node *head)
+void	ft_pa(t_stack *a, t_stack *b)
 {
-	t_node	*node;
+	ft_push(b, a);
+	write(1, "pa\n", 3);
+}
 
-	while (head)
-	{
-		node = head->next;
-		while (node)
-		{
-			if (head->value == node->value)
-				return (1);
-			node = node->next;
-		}
-		head = head->next;
-	}
-	return (0);
+void	ft_ra(t_stack *a)
+{
+	ft_rotate(a);
+	write(1, "ra\n", 3);
+}
+
+void	ft_rb(t_stack *b)
+{
+	ft_rotate(b);
+	write(1, "rb\n", 3);
 }

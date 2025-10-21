@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 21:07:37 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/18 21:41:32 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/20 22:06:51 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_push(t_stack *from, t_stack *dest)
 {
 	t_node	*node;
-	
+
 	if (!from->head)
 		return ;
 	node = from->head;
