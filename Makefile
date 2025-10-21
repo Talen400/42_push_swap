@@ -26,12 +26,14 @@ LIBS := $(LIBFT)
 
 # Mandatory sources
 SRCS := $(SRC_DIR)/main.c \
+		$(SRC_DIR)/ft_sort.c \
 		$(SRC_DIR)/ft_lis.c \
 		$(SRC_DIR)/ft_sort_small.c \
 		$(SRC_DIR)/ft_stack.c \
 		$(SRC_DIR)/ft_utils.c \
 		$(SRC_DIR)/ft_parse.c \
 		$(SRC_DIR)/ft_operations.c \
+		$(SRC_DIR)/ft_find_nodes.c \
 		$(SRC_DIR)/ft_print.c \
 		$(SRC_DIR)/ft_print_s.c \
 		$(SRC_DIR)/ft_print_r.c \

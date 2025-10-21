@@ -6,29 +6,11 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 19:48:23 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/20 22:05:39 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/21 17:29:54 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
-t_node	*ft_highnest_node(t_stack *stack)
-{
-	t_node	*node;
-	t_node	*head;
-
-	if (!stack->head)
-		return (0);
-	head = stack->head;
-	node = head;
-	while (head)
-	{
-		if (head && node->value < head->value)
-			node = head;
-		head = head->next;
-	}
-	return (node);
-}
 
 void	ft_sort_small(t_stack *a)
 {

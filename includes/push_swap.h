@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 22:03:42 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/21 03:00:00 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/21 20:45:39 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,20 @@ int		ft_check_repeat(t_node *head);
 // LIS - Longest increasing subsequence
 t_lis	*ft_lis(t_stack *stack);
 
-// sort small
+// finders
+t_node	*ft_lownest_node(t_stack *stack);
 t_node	*ft_highnest_node(t_stack *stack);
+t_node	*ft_find_pivot(t_stack *stack);
+int		ft_get_pos(t_stack *stack, t_node *search);
+
+// small sort (to size <= 3)
 void	ft_sort_small(t_stack *a);
+
+// sort 
+void	ft_pb_non_lis(t_stack *a, t_stack *b, t_lis *lis);
+void	ft_sort_big(t_stack *a, t_stack *b);
+void	ft_choose_sort(t_stack *a, t_stack *b);
+int		ft_is_sorted(t_stack *stack_a);
 
 // stack
 t_stack	*ft_stacknew(void);
