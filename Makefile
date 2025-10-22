@@ -11,7 +11,7 @@ RESET = \033[0m
 # Configuration
 NAME := push_swap
 CC := cc
-CFLAGS	:= -g -Wextra -Wall -Werror -Wunreachable-code
+CFLAGS	:=  -g -Wextra -Wall -Werror -Wunreachable-code
 
 # Directories
 SRC_DIR := ./srcs
