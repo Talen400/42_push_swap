@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 22:03:42 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/21 20:45:39 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/21 22:26:15 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ t_lis	*ft_lis(t_stack *stack);
 // finders
 t_node	*ft_lownest_node(t_stack *stack);
 t_node	*ft_highnest_node(t_stack *stack);
-t_node	*ft_find_pivot(t_stack *stack);
 int		ft_get_pos(t_stack *stack, t_node *search);
+int		ft_insert_pos(t_stack *stack, t_node *inset);
 
 // small sort (to size <= 3)
 void	ft_sort_small(t_stack *a);

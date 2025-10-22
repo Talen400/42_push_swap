@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 20:43:25 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/21 20:44:20 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/21 21:14:59 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_pb_non_lis(t_stack *a, t_stack *b, t_lis *lis)
 {
 	int		i;
 	int		len;
-	t_node	*pivot;
 
 	i = 0;
 	len = a->size;
@@ -25,14 +24,7 @@ void	ft_pb_non_lis(t_stack *a, t_stack *b, t_lis *lis)
 		if (lis->is_in_lis[i])
 				ft_ra(a);
 		else
-		{
 			ft_pb(a, b);
-			pivot = ft_find_pivot(b);
-			if (b->size > 1 && b->head->value < pivot->value)
-			{
-				ft_rb(b);
-			}
-		}
 		i++;
 	}
 }
@@ -42,9 +34,6 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 	t_lis	*lis;
 
 	lis = ft_lis(a);
-	int	i = -1;
-	while (++i < a->size)
-		printf("lis[%d]: %d\n", i, lis->is_in_lis[i]);
 	ft_pb_non_lis(a, b, lis);
 	free(lis->is_in_lis);
 	free(lis);
