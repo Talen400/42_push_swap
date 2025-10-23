@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 20:43:25 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/21 21:14:59 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/23 03:21:21 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_pb_non_lis(t_stack *a, t_stack *b, t_lis *lis)
 	while (i < len)
 	{
 		if (lis->is_in_lis[i])
-				ft_ra(a);
+			ft_ra(a);
 		else
 			ft_pb(a, b);
 		i++;
@@ -35,9 +35,9 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 
 	lis = ft_lis(a);
 	ft_pb_non_lis(a, b, lis);
+	ft_push_b_turk(a, b);
 	free(lis->is_in_lis);
 	free(lis);
-	(void ) b;
 }
 
 void	ft_choose_sort(t_stack *a, t_stack *b)

@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_parse_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 05:19:47 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/23 06:28:38 by tlavared         ###   ########.fr       */
+/*   Created: 2025/10/23 06:24:47 by tlavared          #+#    #+#             */
+/*   Updated: 2025/10/23 06:25:20 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int	main(int argc, char **argv)
+int	ft_check_repeat(t_node *head)
 {
-	t_stack		*a;
-	t_stack		*b;
+	t_node	*node;
 
-	if (argc < 2)
-		return (1);
-	a = ft_stacknew();
-	b = ft_stacknew();
-	if (!a || !b)
-		return (1);
-	if (ft_parse(argc, argv + 1, a))
+	while (head)
 	{
-		ft_stack_free(a);
-		ft_stack_free(b);
-		return ((ft_handler_logic("Error\n")));
+		node = head->next;
+		while (node)
+		{
+			if (head->value == node->value)
+				return (1);
+			node = node->next;
+		}
+		head = head->next;
 	}
-	if (ft_is_sorted(a))
-	{
-		ft_stack_free(a);
-		ft_stack_free(b);
-		return (1);
-	}
-	ft_choose_sort(a, b);
-	ft_stack_free(a);
-	ft_stack_free(b);
+	return (0);
 }

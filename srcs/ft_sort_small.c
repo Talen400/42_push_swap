@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 19:48:23 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/21 17:29:54 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/23 03:26:21 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_sort_small(t_stack *a)
 	else if (a->size < 4)
 	{
 		high = ft_highnest_node(a);
-		printf("highnest: %d\n", high->value);
 		if (a->head->value == high->value)
 			ft_rra(a);
 		if (high->value > a->tail->value)

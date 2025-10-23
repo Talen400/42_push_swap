@@ -1,3 +1,4 @@
+.gitignore
 *.o
 *.swp
 push_swap
@@ -5,3 +6,6 @@ push_swap
 generator.py
 checker_linux
 push_swap_visualizer/
+log_error/
+push_swap_tester/
+tester.sh

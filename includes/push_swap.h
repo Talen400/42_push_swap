@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 22:03:42 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/21 22:26:15 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/23 06:27:31 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "../libft/libft.h"
 
 # define MAX_INT 2147483647
+# define MIN_INT -2147483648
 
 typedef struct s_node
 {
@@ -37,18 +38,51 @@ typedef struct s_stack
 typedef struct s_lis
 {
 	int	*is_in_lis;
-	int len;
+	int	len;
 }	t_lis;
+
+typedef struct s_cost
+{
+	int		cost_a;
+	int		cost_b;
+	int		dir_a;
+	int		dir_b;
+	int		total;
+	t_node	*target;
+}	t_cost;
+
+typedef struct s_calc_data
+{
+	int	pos_a;
+	int	pos_b;
+	int	cost_ra;
+	int	cost_rra;
+	int	cost_rb;
+	int	cost_rrb;
+}	t_calc_data;
 
 // utils
 int		ft_handler_logic(char *str);
 
 // parse
-int		ft_parse(char **argv, t_stack *stack);
+int		ft_parse(int argc, char **argv, t_stack *stack);
+
+// parse utils
 int		ft_check_repeat(t_node *head);
 
 // LIS - Longest increasing subsequence
 t_lis	*ft_lis(t_stack *stack);
+
+// Turk
+void	ft_push_b_turk(t_stack *a, t_stack *b);
+t_node	*ft_find_cheap_node(t_stack *a, t_stack *b);
+t_cost	ft_calculate_cost(t_stack *a, t_stack *b, t_node *node);
+
+// Turk operations
+void	ft_execute_operations(t_stack *a, t_stack *b, t_cost cost);
+
+// Align
+void	ft_final_align(t_stack *stack);
 
 // finders
 t_node	*ft_lownest_node(t_stack *stack);

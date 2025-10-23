@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:29:24 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/21 22:26:01 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/23 04:19:17 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_insert_pos(t_stack *stack, t_node *insert)
 	while (pos < stack->size)
 	{
 		if (node->next && node->value < insert->value
-				&& insert->value < node->next->value)
+			&& insert->value < node->next->value)
 			return (pos + 1);
 		if (node->next && node->value > node->next->value)
 		{
