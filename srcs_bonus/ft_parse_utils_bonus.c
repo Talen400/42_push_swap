@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_parse_utils_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/18 03:00:22 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/23 19:08:36 by tlavared         ###   ########.fr       */
+/*   Created: 2025/10/23 06:24:47 by tlavared          #+#    #+#             */
+/*   Updated: 2025/10/23 18:24:11 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "../includes/checker_bonus.h"
 
-int	ft_handler_logic(char *str)
+int	ft_check_repeat(t_node *head)
 {
-	ft_putstr_fd(str, 2);
-	return (1);
-}
+	t_node	*node;
 
-void	ft_free_stacks(t_stack *a, t_stack *b)
-{
-	ft_stack_free(a);
-	ft_stack_free(b);
+	while (head)
+	{
+		node = head->next;
+		while (node)
+		{
+			if (head->value == node->value)
+				return (1);
+			node = node->next;
+		}
+		head = head->next;
+	}
+	return (0);
 }

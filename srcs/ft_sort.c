@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 20:43:25 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/23 03:21:21 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/24 05:00:22 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,18 @@ void	ft_sort_big(t_stack *a, t_stack *b)
 
 void	ft_choose_sort(t_stack *a, t_stack *b)
 {
-	if (a->size < 4)
-		ft_sort_small(a);
+	if (a->size < 6)
+		ft_sort_small(a, b);
 	else
 		ft_sort_big(a, b);
 }
 
-int	ft_is_sorted(t_stack *stack_a)
+int	ft_is_sorted(t_stack *stack_a, t_stack *b)
 {
 	t_node	*current;
 
+	if (b->head)
+		return (0);
 	if (!stack_a || !stack_a->head || stack_a->size <= 1)
 		return (1);
 	current = stack_a->head;

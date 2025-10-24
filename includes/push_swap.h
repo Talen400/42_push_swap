@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 22:03:42 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/23 06:27:31 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/24 04:51:14 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_calc_data
 
 // utils
 int		ft_handler_logic(char *str);
+void	ft_free_stacks(t_stack *a, t_stack *b);
 
 // parse
 int		ft_parse(int argc, char **argv, t_stack *stack);
@@ -91,13 +92,13 @@ int		ft_get_pos(t_stack *stack, t_node *search);
 int		ft_insert_pos(t_stack *stack, t_node *inset);
 
 // small sort (to size <= 3)
-void	ft_sort_small(t_stack *a);
+void	ft_sort_small(t_stack *a, t_stack *b);
 
 // sort 
 void	ft_pb_non_lis(t_stack *a, t_stack *b, t_lis *lis);
 void	ft_sort_big(t_stack *a, t_stack *b);
 void	ft_choose_sort(t_stack *a, t_stack *b);
-int		ft_is_sorted(t_stack *stack_a);
+int		ft_is_sorted(t_stack *stack_a, t_stack *b);
 
 // stack
 t_stack	*ft_stacknew(void);
@@ -132,14 +133,11 @@ void	ft_rrr(t_stack *a, t_stack *b);
 
 // binary search
 int		*ft_array_binary(t_stack *list);
-int		ft_binary_search(int *arr, int search, int len);
 
-// math
-int		ft_abs(int n);
-int		ft_max(int a, int b);
-int		ft_min(int a, int b);
+// qsort
+void	ft_qsort(int *arr, int low, int high);
 
-// print
-void	ft_print_stacks(t_stack *a, t_stack *b, const char *op);
+// normalize stack
+int		ft_normalize_values(t_stack *stack);
 
 #endif

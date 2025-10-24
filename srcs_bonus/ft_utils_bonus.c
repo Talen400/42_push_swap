@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_math.c                                          :+:      :+:    :+:   */
+/*   ft_utils_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/20 13:40:32 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/20 13:42:16 by tlavared         ###   ########.fr       */
+/*   Created: 2025/10/18 03:00:22 by tlavared          #+#    #+#             */
+/*   Updated: 2025/10/23 19:08:19 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "../includes/checker_bonus.h"
 
-int	ft_abs(int n)
+int	ft_handler_logic(char *str)
 {
-	if (n < 0)
-		n *= -1;
-	return (n);
+	ft_putstr_fd(str, 2);
+	return (1);
 }
 
-int	ft_max(int a, int b)
+void	ft_free_stacks(t_stack *a, t_stack *b)
 {
-	if (a > b)
-		return (a);
-	else
-		return (b);
-}
-
-int	ft_min(int a, int b)
-{
-	if (a < b)
-		return (a);
-	else
-		return (b);
+	ft_stack_free(a);
+	ft_stack_free(b);
 }

@@ -10,6 +10,7 @@ RESET = \033[0m
 
 # Configuration
 NAME := push_swap
+NAME_BONUS := checker
 CC := cc
 CFLAGS	:=  -g -Wextra -Wall -Werror -Wunreachable-code
 
@@ -42,22 +43,20 @@ SRCS := $(SRC_DIR)/main.c \
 		$(SRC_DIR)/ft_print_r.c \
 		$(SRC_DIR)/ft_print_two.c \
 		$(SRC_DIR)/ft_align_ra.c \
-		$(SRC_DIR)/ft_math.c \
-		$(SRC_DIR)/ft_binary_search.c
+		$(SRC_DIR)/ft_binary_search.c \
 
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-SRCS_BONUS := $(SRC_BONUS_DIR)/main_bonus.c \
-			  $(SRC_BONUS_DIR)/ft_path_bonus.c \
-			  $(SRC_BONUS_DIR)/ft_pipex_bonus.c \
-			  $(SRC_BONUS_DIR)/ft_pipex_utils_bonus.c \
-			  $(SRC_BONUS_DIR)/ft_heredoc_bonus.c \
-			  $(SRC_BONUS_DIR)/ft_split_lit_bonus.c
+SRCS_BONUS := $(SRC_BONUS_DIR)/ft_checker_bonus.c \
+			  $(SRC_BONUS_DIR)/ft_checker_utils_bonus.c \
+			  $(SRC_BONUS_DIR)/ft_sort_bonus.c \
+			  $(SRC_BONUS_DIR)/ft_stack_bonus.c \
+			  $(SRC_BONUS_DIR)/ft_parse_bonus.c \
+			  $(SRC_BONUS_DIR)/ft_parse_utils_bonus.c \
+			  $(SRC_BONUS_DIR)/ft_operations_bonus.c \
+			  $(SRC_BONUS_DIR)/ft_utils_bonus.c
 
 OBJS_BONUS := $(SRCS_BONUS:$(SRC_BONUS_DIR)/%.c=$(OBJ_BONUS_DIR)/%.o)
-
-MANDATORY_MARK := .mandatory
-BONUS_MARK := .bonus
 
 all: $(NAME)
 
@@ -72,13 +71,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
 	@echo "$(CYAN)Compiled: $(notdir $<)$(RESET)"
 
-$(NAME): $(MANDATORY_MARK)
-
-$(MANDATORY_MARK): $(LIBFT) $(OBJS)
+$(NAME): $(LIBFT) $(OBJS)
 	@rm -f $(BONUS_MARK)
 	@echo "$(YELLOW)Linking $(NAME)...$(RESET)"
 	@$(CC) $(OBJS) $(LIBS) -o $(NAME)
-	@touch $(MANDATORY_MARK)
 	@echo "$(GREEN)$(NAME) build successfully!$(RESET)"
 
 # Bonus part
@@ -91,15 +87,13 @@ $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c | $(OBJ_BONUS_DIR)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
 	@echo "$(MAGENTA)Compiled bonus: $(notdir $<)$(RESET)"
 
-bonus: $(BONUS_MARK)
-
-$(BONUS_MARK): $(LIBFT) $(OBJS_BONUS)
+$(NAME_BONUS): $(LIBFT) $(OBJS_BONUS)
 	@rm -f $(MANDATORY_MARK)
-	@echo "$(YELLOW)Linking $(NAME) (bonus)...$(RESET)"
-	@$(CC) $(OBJS_BONUS) $(LIBS) $(HEADERS) -o $(NAME)
-	@touch $(BONUS_MARK)
-	@echo "$(GREEN)$(NAME) (bonus) built successfully!$(RESET)"
+	@echo "$(YELLOW)Linking $(NAME_BONUS) (bonus)...$(RESET)"
+	@$(CC) $(OBJS_BONUS) $(LIBS) $(HEADERS) -o $(NAME_BONUS)
+	@echo "$(GREEN)$(NAME_BONUS) (bonus) built successfully!$(RESET)"
 
+bonus: $(NAME_BONUS)
 # Libraries
 $(LIBFT):
 	@echo "$(YELLOW)Building libft...$(RESET)"
@@ -118,6 +112,7 @@ clean:
 fclean: clean
 	@echo "$(RED)Full clean...$(RESET)"
 	@rm -rf $(NAME)
+	@rm -rf $(NAME_BONUS)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 	@echo "$(RED)Full clean completed!$(RESET)"
 
