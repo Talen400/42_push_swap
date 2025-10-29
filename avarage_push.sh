@@ -8,7 +8,7 @@
 # --- CONFIGURATION ---
 PUSH_SWAP_PATH="./push_swap"
 CHECKER_PATH="./checker"
-NUM_OF_ELEMENTS=100
+NUM_OF_ELEMENTS=500
 NUM_OF_TESTS=500
 MAX_VALUE=10000
 VALIDATE_OUTPUT=true # Change to true to validate with checker
