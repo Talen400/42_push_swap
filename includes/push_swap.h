@@ -6,15 +6,12 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 22:03:42 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/24 04:51:14 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/29 04:30:48 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-
-# include <stdio.h>
-# include <time.h>
 
 # include "../libft/libft.h"
 
