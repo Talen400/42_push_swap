@@ -334,7 +334,9 @@ Both programs handle the following errors:
 
 ---
 
-## 👨‍💻 Author
+## 👤 Author
 
-Made with 🧠 and ☕ by Talen (tlavared) :>
----
+**tlavared** - 42 São Paulo
+
+
+*Made with ❤️ at 42 São Paulo*
